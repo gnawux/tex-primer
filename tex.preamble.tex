@@ -34,15 +34,15 @@
 
 \usepackage[CJKchecksingle]{xeCJK}
 
-\linespread{1.05} 
+%\linespread{1.05} 
 
 %\XeTeXlinebreaklocale "zh"
 %\XeTeXlinebreakskip = 0pt plus 1pt
 
-\setCJKmainfont[BoldFont={FZChaoCuHei-M10}]{FZHei-B01}
+\setCJKmainfont[BoldFont={FZHei-B01}]{FZHei-B01}
 %\setCJKmainfont[BoldFont={FZHei-B01}]{FZBeiWeiKaiShu-S19}
 %\setCJKmainfont[BoldFont={FZCuSong-B09}]{FZBaoSong-Z04}
-\setCJKsansfont[BoldFont={FZChaoCuHei-M10}]{FZHei-B01}
+\setCJKsansfont[BoldFont={FZHei-B01}]{FZHei-B01}
 \setCJKmonofont[BoldFont={FZCuYuan-M03}]{FZZhunYuan-M02}
 \punctstyle{kaiming}
 
@@ -72,6 +72,9 @@
 
 \mode<handout>{
 	\usepackage{pgfpages}
+	\renewcommand\pgfsetupphysicalpagesizes{%
+		\pdfpagewidth\pgfphysicalwidth\pdfpageheight\pgfphysicalheight%
+	}
 	\pgfpagesuselayout{2 on 1}[a4paper,border shrink=5mm]
 	\setbeamercolor{background canvas}{bg=black!5}
 }
