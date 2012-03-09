@@ -1,0 +1,16 @@
+To compile the slides:
+
+> xelatex tex.beamer.tex
+
+and repeat twice more.
+
+To compile the handout version
+
+> xelatex tex.handout.tex
+
+and repeat twice more.
+
+Some of the contents are out-of-dated now, e.g. no xelatex and xeCJK here. Because the slides are written more than 5 years ago.
+
+Now I update it to compiled with xelatex, and will update the contents as soon as I have enough time.
+
