@@ -1,0 +1,77 @@
+\mode<article>{
+  \usepackage{fullpage}
+  \usepackage[xetex,colorlinks,linkcolor=blue,%
+              hyperindex,%
+              pdfstartview=FitH,%
+              plainpages=false,%
+              pdftitle=title,%
+              bookmarksopen=true,%
+              CJKbookmarks]
+              {hyperref}
+}
+
+\mode<presentation> {
+  \usetheme{AnnArbor}
+
+  \setbeamertemplate{background canvas}[vertical shading][bottom=yellow!10,top=blue!10]
+
+  \usefonttheme[onlylarge]{structuresmallcapsserif}
+  \usefonttheme[onlysmall]{structurebold}
+
+  \setbeamerfont{author}{shape=\upshape,family=\ttfamily}
+  \setbeamerfont{frametitle}{shape=\upshape,family=\bfseries}
+
+  \setbeamercolor{alerted text}{fg=red}
+  \setbeamercolor{titlelike}{parent=structure,bg=yellow!25!white}
+  \setbeamercolor{frametitle}{fg=black,bg=yellow!25!white}
+  \setbeamercolor{subsection in head/foot}{fg=darkblue!60!black,bg=yellow!85!green}
+  
+  \beamertemplateballitem
+}
+\mode<handout>{
+  \beamertemplatesolidbackgroundcolor{black!5}
+}
+
+\usepackage[CJKchecksingle]{xeCJK}
+
+\linespread{1.05} 
+
+%\XeTeXlinebreaklocale "zh"
+%\XeTeXlinebreakskip = 0pt plus 1pt
+
+\setCJKmainfont[BoldFont={FZChaoCuHei-M10}]{FZHei-B01}
+%\setCJKmainfont[BoldFont={FZHei-B01}]{FZBeiWeiKaiShu-S19}
+%\setCJKmainfont[BoldFont={FZCuSong-B09}]{FZBaoSong-Z04}
+\setCJKsansfont[BoldFont={FZChaoCuHei-M10}]{FZHei-B01}
+\setCJKmonofont[BoldFont={FZCuYuan-M03}]{FZZhunYuan-M02}
+\punctstyle{kaiming}
+
+\usepackage{subfigure}
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps,pgfshade}
+%\usepackage{CJK,CJKnumb}  
+%usepackage{indentfirst}
+\usepackage{tipa}
+\usepackage{listings}
+
+\setbeamercovered{dynamic}
+
+\pgfdeclaremask{university}{figures/wti-logo-mask}
+\pgfdeclareimage[height=0.7cm,mask=university]{university-logo}{figures/wti-logo}
+\logo{\pgfuseimage{university-logo}}
+
+\lstset{extendedchars=false}
+\lstset{linewidth=.8\textwidth}
+\lstset{basicstyle=\small\tt}
+\lstset{keywordstyle=\tt\color{red}}
+\lstset{numbers=left}
+\lstset{numberstyle=\tiny\color{blue}}
+\lstset{frame=trbl}
+\lstset{language=[LaTeX]TeX}
+
+%---------------------------------------------------------------------
+
+\mode<handout>{
+	\usepackage{pgfpages}
+	\pgfpagesuselayout{2 on 1}[a4paper,border shrink=5mm]
+	\setbeamercolor{background canvas}{bg=black!5}
+}

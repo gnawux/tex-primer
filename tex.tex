@@ -1,0 +1,952 @@
+\input{tex.preamble}
+
+\begin{document}
+%\begin{CJK*}{GBK}{song}\CJKcaption{GB}\CJKtilde\CJKindent
+
+%------------- The title page -------------------------------------------------
+\title{初学~\LaTeX}
+\author{王旭}
+\institute[WTI, BUPT]{
+\alert{W}ireless \alert{T}ech \alert{I}nnovation (WTI) Institute,\\
+\alert{B}eijing \alert{U}niversity of \alert{P}osts and \alert{T}elecommunications (BUPT)\\
+\vspace{1em}
+Slides are manipulated by \LaTeXe \& Beamer.\\
+\vspace{1em}
+\pgfimage[height=1em]{figures/somerights20}
+\pgfimage[height=1em]{figures/standard1}
+\pgfimage[height=1em]{figures/standard2}
+\pgfimage[height=1em]{figures/standard3}\\
+{\tiny\href{http://creativecommons.org/licenses/by-nc-nd/2.0/}%
+{``Distributed under Creative Commons Linces: Some Right Reserved, BY-NC-ND''} }
+		  
+}
+\date{}
+
+\mode<article>{
+  \maketitle
+}
+\mode<presentation> {
+\begin{frame}
+  \titlepage
+\end{frame}
+}
+
+%------------------------------------------------------------------------------
+%------------- The Contents ---------------------------------------------------
+
+\section*{大纲}
+
+\begin{frame}[shrink]
+\frametitle{大纲}
+  \transglitter[direction=315]<1>
+  \tableofcontents[part=1,pausesections,hideallsubsections]
+\end{frame}
+
+%------------------------------------------------------------------------------
+\AtBeginSection[]
+{
+    \begin{frame}[shrink]
+	\frametitle{大纲}
+	\tableofcontents[hideothersubsections,sectionstyle=show/shaded]
+    \end{frame}
+}
+
+\part<presentation>{正文}
+
+\section{\LaTeX~导引}
+
+\subsection{\LaTeX~是什么}
+
+\begin{frame}
+	\frametitle{什么是~\TeX}
+	\begin{columns}[t]
+	    \begin{column}{8cm}
+		\begin{itemize}
+		    \item<+-> 右边这位狮子先生
+		    \item<+-> 一个字处理软件，或说是一个\alert<+->{排版软件}，就像~MS Word
+		    \item<+-> 一个\alert<+->{可编程}、可扩展的工具，富于\alert<+->{精确控制}能力
+		    \item<+-> 一个擅长逻辑结构严密的文章、特别是\alert<+->{科学论文}的排版工具
+		    \item<+-> 一个真正的跨平台工具，不论你在什么系统上都能使用
+		    \item<+-> 不是所\alert<+->{见}即所得，而是所\alert<+->{想}即所得的工具
+		\end{itemize}
+	    \end{column}
+	    \begin{column}{2cm}
+		\begin{figure}[htb]
+		    \begin{center}
+			\pgfimage[width=2cm]{figures/TeXlogo}
+		    \end{center}
+		    \caption{\TeX}
+		    \label{fig:tex}
+		\end{figure}
+	    \end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{第一关：如何发音}
+    \begin{block}{\TeX}<+->
+	\texttt{/tekh/}，关键点: X~是希腊字母~\textrm{X}~(chi)，\alert<+->{绝对不能}读成~\texttt{/ks/}，如果觉得不好发音，可以读成~\texttt{/k/}。
+    \end{block}
+    \begin{block}{\LaTeX}<+->
+	\texttt{/'lei'tekh/}~或~\texttt{/'l\textscripta:'tekh/}。
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\TeX~之父}
+    \begin{columns}[t]
+	\begin{column}{5cm}
+		\begin{figure}[htb]
+		    \begin{center}
+			\pgfimage[height=5cm]{figures/knuth}
+		    \end{center}
+		    \caption{\TeX~的缔造者: Knuth}
+		    \label{fig:knuth}
+		\end{figure}
+	\end{column}
+	\begin{column}{5cm}
+		\begin{figure}[htb]
+		    \begin{center}
+			\pgfimage[height=5cm]{figures/texbook}
+		    \end{center}
+		    \caption{\TeX{}Book}
+		    \label{fig:texbook}
+		\end{figure}
+	\end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{这些是什么？}
+    \begin{block}{\TeX~的马甲}<+->
+	Plain \TeX, \LaTeX, Con\TeX{}t
+    \end{block}
+    \begin{block}{穿马甲的~\TeX}<+->
+	TeXLive, CTeX
+    \end{block}
+    \begin{block}{\TeX~的徒弟}<+->
+	OMEGA\dots
+    \end{block}
+    \onslide<+->{以后我们的话题就要围绕~\alert{\LaTeX}~进行了}
+%    \begin{block}{\TeX~的兄弟}<+->
+%	METAFONT \& METAPOST
+%    \end{block}
+\end{frame}
+
+\subsection{\LaTeX~的特点}
+
+\begin{frame}
+    \frametitle{为什么使用~(不用)~\LaTeX}
+    \begin{itemize}
+	\item<+-| alert@+> 使用简便、样式和内容分开，“所想即所得”。
+	\item<+-| alert@+> 印刷级的优质排版，特别是英文
+	\item<+-| alert@+> 源文件的编辑更加高效
+	\item<+-| alert@+> 漂亮而方便的数学公式编辑
+	\item<+-| alert@+> 便捷的交叉索引和参考文献编排
+	\item<+-| alert@+> 众多的用户和大量成熟好用的模板
+	\item<+-| alert@+> 完美的~UNIX~哲学
+    \end{itemize}
+\end{frame}
+
+\subsection{安装~\LaTeX}
+\begin{frame}
+    \frametitle{\TeX~套装}
+    \begin{block}{一个完整的~\TeX~系统需要具备:}
+	\begin{itemize}
+	    \item<2-> \TeX~执行程序
+	    \item<3-> 多种样式，对于我们来说，需要的是~\LaTeXe, 实际上还有~plain, Con\TeX{}t\ldots
+	    \item<4-> 大量宏包，比如，要包含图形就要用~graphicx~宏包。
+	    \item<5-> 需要的字体---要排出漂亮的文档，当然要有漂亮的字体。
+	    \item<6-> 辅助工具:
+		\begin{itemize}
+		    \item \alert<7->{MetaFont\&MetaPost}~是很多精美绘图的缔造者
+		    \item \alert<8->{维护工具}最能看出套装的独到之处
+		    \item 当然也有些套装中甚至提供源文件\alert<9->{编辑器}。
+		\end{itemize}
+	\end{itemize}
+    \end{block}
+\end{frame}
+\begin{frame}
+    \frametitle{\TeX~套装}
+    \begin{block}{常见的~\TeX~套装}
+	\begin{itemize}
+	    \item<1-| alert@2> C\TeX，中文~Windows~用户最常用的套装。
+
+		\href{http://www.ctex.org}{CTeX~网站}提供的一套中文~TeX~套装，对~GBK~中文支持的更好，可以利用~Windows~系统中的标准中文字体，随软件包附带了~WinEdt~编辑器构成一个集成开发环境。
+	    \item<1-| alert@3> \TeX{}Live，最完整的多平台套装。
+
+		\href{http://www.ctan.org}{CTAN}~提供的全平台的~TeX~套装，实际包含了几个服务于不同平台的核心执行程序以及大量的宏包，每年发布更新。
+		
+	    \item<1-| alert@4> te\TeX，Linux~用户最常用的套装。
+
+		 Thomas Esser~维护的~UNIX~类操作系统使用的~\TeX~套装，几乎每个~Linux~发布版都会包含它，内容非常丰富，您看到的这个幻灯片就是~te\TeX~的杰作。
+
+	    \item<1-> fp\TeX, Mik\TeX\ldots
+	\end{itemize}
+    \end{block}
+\end{frame}
+
+\subsection{\LaTeX~是如何工作的}
+
+\begin{frame}
+    \frametitle{\LaTeX~工作机制}
+    \begin{columns}
+	\begin{column}{6cm}
+	\begin{figure}[htb]
+	    \begin{center}
+		\pgfimage[height=4cm]{figures/fonts_tex}
+	    \end{center}
+	    \caption{\TeX~的工作流程}
+	    \label{fig:process}
+	\end{figure}
+	\end{column}
+	\begin{column}{4cm}
+	    \begin{enumerate}
+		\item<2- |alert@2> 载入源文件
+		\item<2- |alert@3> 读入需要的字体维度信息(盒子)
+		\item<2- |alert@4> 根据宏指令进行排版，得到排版信息
+		\item<2- |alert@5> 输出为~DVI。
+		\item<2- |alert@6> 载入字形信息~(具体的字)
+		\item<2- |alert@7> 最终输出。
+	    \end{enumerate}
+	\end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\LaTeX~的源文件}
+	\begin{itemize}
+	    \item 选择你最喜欢的编辑器，写入一段源文件，这是我们的第一个~\LaTeX~文件:
+	\end{itemize}
+	\lstinputlisting{examples/first.tex}
+\end{frame}
+\begin{frame}
+    \frametitle{制作输出文件}
+	\begin{itemize}[<+->]
+		\item 可以这样:
+		    
+		\begin{tabular}[c]{l@{$\Rightarrow$}l}
+			\hline
+			\texttt{latex first.tex} & \texttt{first.dvi} 		\\
+			\texttt{dvips first.dvi} & \texttt{first.ps} 		\\
+			\texttt{pspdf first.ps}  & \texttt{first.pdf} 		\\
+			\hline
+		\end{tabular}
+		
+		\item 也可以这样:
+
+		\begin{tabular}[c]{l@{$\Rightarrow$}l}
+			\hline
+			\texttt{latex first.tex} & \texttt{first.dvi} 		\\
+			\texttt{\alert{dvipdfm} first.dvi} & \texttt{first.pdf}		\\
+			\hline
+		\end{tabular}
+
+		\item 还可以直接这样:
+
+		\begin{tabular}[c]{l@{$\Rightarrow$}l}
+			\hline
+			\texttt{\alert{pdflatex} first.tex} & \texttt{first.pdf} \\
+			\hline
+		\end{tabular}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{用~\LaTeX~写文章的方式}
+	\begin{itemize}
+		\item<+-> 选好要用的模板开始，不过，就算是没选好的话，将来换也可以；
+		\item<+-> 按照章节组织好文章；
+		\item<+-> 插入公式、表格、图形\dots
+		\item<+-> 在需要被引用的地方加上标记~(label), 在引用的地方引用标记；
+		\item<+-> 添加参考文献和参考文献的引用~(随用随加也是常见的)；
+		\item<+-> 根据行文的需要，对需要强调的内容加以强调；
+		\item<+-> 高手的话，可能做更多格式的设置；
+		\item<+-> 生成输出文档，适当调整格式，直到完成目标为止。
+	\end{itemize}
+\end{frame}
+\section{\LaTeX~的基本使用}
+
+\subsection{源文件的基本要素: 文本、命令和注释}
+%文本内容，注释方式，命令与环境
+\defverb\Percent|%|
+\defverb\BSP|\|
+\defverb\vbla|\LaTeX|
+\defverb\vbit|\textit{italic}|
+\defverb\vbrl|\rule[.5em]{5em}{1pt}|
+\defverbatim[colored]\vbabstract{%
+\begin{lstlisting}
+\begin{abstract}
+    blah blah
+    blah blah
+\end{abstract}
+\end{lstlisting}%
+}
+\begin{frame}
+    \frametitle{源文件中的要素}
+    \LaTeX~的源文件，尤其是开头，更接近于程序而不是文章或书，文章中有一些基本要素
+    \begin{itemize}[<+->]
+	\item 注释: 以~\Percent~开头的是注释。这一行后面的内容都不会影响最终输出结果。
+	\item 以~\BSP~开头的词是命令，更确切地说是需要~\LaTeX~特殊处理的内容。
+	    \begin{itemize}[<+->]
+		\item 命令如\\
+		    \begin{tabular}[t]{|c|c|c|}
+			\hline
+			\vbla & \vbit & \vbrl \\
+			\hline
+			\LaTeX & \textit{italic} & \rule[.5em]{5em}{1pt} \\
+			\hline
+		    \end{tabular}
+		\item 还有中间可以加入大量内容的环境。如:\\
+			\lstinputlisting[firstline=70,lastline=72]{examples/article.tex}
+	    \end{itemize}
+	\item 除此之外的内容就是要被排版的文字了。
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{文字与空白}
+	多于一个的空格以及换行都会被当作一个空格，而连续的两个换行~(也就是一个空行)~则会被当作是分段。
+	
+	\begin{block}{示例}<2->
+		\lstinputlisting[firstline=58,lastline=63,frame=L]{examples/article.tex}
+	\end{block}
+	\begin{block}{相应的结果}<3->
+		This is an          example for illustrate the organ%
+		ization of 
+		a \LaTeXe file. 
+		
+		You can learn many commands and environments of it in 
+		this example.
+	\end{block}
+\end{frame}
+
+\defverb\vbinput|\input{filename}|
+\defverb\vbinc|\include{filename}|
+\begin{frame}
+	\frametitle{源文件的结构}
+	\begin{overprint}
+	\onslide<1-2|handout:1>	
+	\begin{block}{导言}<2->
+		\lstinputlisting[firstline=1,lastline=8]{examples/article.tex}
+		前导部分的功能就是引入宏包、定义命令\ldots
+	\end{block}
+	\onslide<3-4|handout:2>
+	\begin{block}{正文}<3->
+		\lstinputlisting[firstline=43,lastline=44,frame=trl]{examples/article.tex}
+		这里就是正文部分了\ldots
+		\lstinputlisting[firstline=217,lastline=218,frame=rbl]{examples/article.tex}
+	\end{block}
+	\begin{block}{另外}<4->
+		一篇~\LaTeX~文章可以写在不同的源文件里，通过~\alert{\vbinput}~或~\alert{\vbinc}~命令载入，对于保持源文件的清晰和美观有很大好处。
+	\end{block}
+	\end{overprint}
+\end{frame}
+
+%\defverb\vbdc|\documentclass{}|
+%\begin{frame}
+%	\frametitle{导言的内容}
+%	\begin{itemize}
+%		\item<2-> \LaTeXe~源文件的第一条命令是~\alert{\vbdc}
+%
+%			\onslide<3->{它的最常见取值是: article, report, 和~book。}
+%		\item<4-> 之后是载入需要的宏包
+%	\end{itemize}
+%\end{frame}
+
+\begin{frame}
+	\frametitle{文章的标题}
+	文章的标题部分包括文章的标题、作者和日期:
+	\begin{overprint}
+		\onslide<1-2| handout:1>
+		\begin{block}{首先是文章的题目:}<2>
+			\lstinputlisting[firstline=45,lastline=46]{examples/article.tex}
+			这是整篇文章的题目，如果需要让题目分行，可以使用双反斜线。
+		\end{block}
+		\onslide<3| handout:2>
+		\begin{block}{作者列表:}
+			\lstinputlisting[firstline=47,lastline=54]{examples/article.tex}
+		\end{block}
+%		\onslide<3| handout:3>
+%		\begin{block}{效果}
+%			\begin{minipage}[t]{8cm}
+%				\title{a}
+%				\author{b}
+%				\maketitle
+%			\end{minipage}
+%		\end{block}
+	\end{overprint}
+\end{frame}
+
+\defverb\vbmkt|\maketitle|
+\defverb\vbtoc|\tableofcontents|
+\begin{frame}
+	\frametitle{章节与段落}
+	\LaTeX~按照章节组织文章的内容
+	\begin{overprint}
+		\onslide<1-5|handout:1>
+		\begin{block}{对于~\alert{article}~文档类}
+			\begin{itemize}
+				\item<2-5> 有一个特殊的~\alert{abstract}~环境，作为摘要；
+				\item<3-5> 文章的不同大纲级别包括
+
+					section, subsection, subsubsection
+
+				\item<4-5> 对于超长的章节名称，可以有个短名字出现在页眉和目录中:
+					\lstinputlisting[firstline=77,lastline=78]{examples/article.tex}
+				\item<5> 带有~$\ast$~的章节没有编号。
+					\lstinputlisting[firstline=83,lastline=83]{examples/article.tex}
+			\end{itemize}
+		\end{block}
+		\onslide<6-11|handout:2>
+		\begin{block}{对于~\alert{book}~文档类}
+			\begin{itemize}
+				\item<7-11> \alert{\vbmkt}~命令会产生一个扉页，而不是~\alert{article}~那样的标题栏。
+				\item<8-11> 多出了两个更高的大纲级别:
+
+					part, chapter
+
+				\item<9-11> 缺省情况下，每一章都从右边的页开始，可以通过~openany~参数改变。
+				\item<10-11> 目录~(\vbtoc)~等内容会成为一章，但没有编号
+				\item<11> 书的内容可以分为三个部分:
+
+					frontmatter, mainmatter \& appendix
+			\end{itemize}
+		\end{block}
+	\end{overprint}
+\end{frame}
+
+\begin{frame}
+	\frametitle{特殊文本元素}
+	有些特殊的文本元素是由程序生成的，用于辅助文章的理解
+	\begin{itemize}
+		\item<2-|alert@2> 标题栏或扉页，章节，已经介绍过了。
+		\item<3-|alert@3> 脚注
+			\lstinputlisting[firstline=87,lastline=88]{examples/article.tex}
+		\item<4-|alert@4> 标记
+			\lstinputlisting[firstline=66,lastline=66]{examples/article.tex}
+		\item<5-|alert@5> 引用标记
+			\lstinputlisting[firstline=90,lastline=91]{examples/article.tex}
+	\end{itemize}
+\end{frame}
+
+\subsection{特殊字符的输入与逐字显示}
+
+\begin{frame}
+	\frametitle{特殊字符}
+	我们在上面已经看到很多特殊字符了，这里要介绍几个最常用的\footnote{参考~lshort.}:
+	\begin{overprint}
+		\onslide<1-4|handout:1>
+		\begin{itemize}
+			\item<2-|alert@2> 引号
+			\lstinputlisting[firstline=95,lastline=95]{examples/article.tex}
+			\item<3-|alert@3> 横线
+			\lstinputlisting[firstline=99,lastline=101]{examples/article.tex}
+			\item<4-|alert@4> 波浪符
+			\lstinputlisting[firstline=97,lastline=97]{examples/article.tex}
+		\end{itemize}
+		\onslide<5-8 |handout:2>
+		\begin{block}{显示效果}
+			\begin{itemize}
+				\item<6-> 引号\\
+					\fbox{we use \alert{``}quote sign\alert{''} like this. So pretty.}
+				\item<7-> 横线\\
+					one means hyphe-nation\\
+					two is a -- short bar\\
+					three --- oh yeah\\
+				\item<8-> 波浪符\\
+					Tilde(\alert{\~{}}) can generate~nbsp
+			\end{itemize}
+		\end{block}
+	\end{overprint}
+\end{frame}
+
+\begin{frame}
+	\frametitle{逐字显示}
+	有的时候，我们需要刻意避免~\LaTeX~将我们输入的字符当作是特殊指令。
+	\begin{itemize}
+		\item<2-|alert@2> 单行的逐字显示
+		\lstinputlisting[firstline=105,lastline=105]{examples/article.tex}
+		\item<2-|alert@3> 整段的显示
+		\lstinputlisting[firstline=107,lastline=111]{examples/article.tex}
+		\item<2-> 更复杂的逐字显示: listings, fancyverb\ldots
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{调整显示效果}
+	为了表示不同的内容，我们时常会指定不同的字体族
+	\begin{itemize}
+		\item<2-|alert@2> 强调命令与下划线
+		\lstinputlisting[firstline=115,lastline=115]{examples/article.tex}
+		\item<3-|alert@3> 粗体
+		\lstinputlisting[firstline=117,lastline=117]{examples/article.tex}
+		\item<4-|alert@4> 斜体
+		\lstinputlisting[firstline=119,lastline=119]{examples/article.tex}
+		\item<5-|alert@5> 等线字体
+		\lstinputlisting[firstline=121,lastline=121]{examples/article.tex}
+	\end{itemize}
+\end{frame}
+
+\subsection{列表与枚举}
+
+\begin{frame}
+	\frametitle{列表与枚举}
+	将要说明的内容分点列出，是最常用的说明手法之一。
+	\begin{overprint}
+		\onslide<1-2|handout:1>
+		\begin{block}{示例}<1-2>
+			\lstinputlisting[firstline=125,lastline=129]{examples/article.tex}
+		\end{block}
+		\begin{block}{效果}<2>
+			\begin{itemize}
+				\item ooolllwww
+				\item tttiiirrr
+				\item nnnmmmeee
+			\end{itemize}
+		\end{block}
+		\onslide<3-4|handout:2>
+		\begin{block}{示例}<3-4>
+			\lstinputlisting[firstline=131,lastline=135]{examples/article.tex}
+		\end{block}
+		\begin{block}{效果}<4>
+			\begin{enumerate}
+				\item first one
+				\item another one
+				\item yet another
+			\end{enumerate}
+		\end{block}
+		\onslide<5-6|handout:3>
+		\begin{block}{示例}<5-6>
+			\lstinputlisting[firstline=137,lastline=141]{examples/article.tex}
+		\end{block}
+		\begin{block}{效果}<6>
+			\begin{description}
+				\item[itemize] bullet
+				\item[enumerate] number
+				\item[description] the term
+			\end{description}
+		\end{block}
+	\end{overprint}
+\end{frame}
+
+\section{书写中文}
+
+\begin{frame}
+	\frametitle{\TeX/\LaTeX~的中文支持}
+	\begin{itemize}[<+->]
+		\item \TeX~本身并不支持中文编码，无法处理中文。
+		\item \TeX~的一个全新实现，\alert{OMEGA}~更适于处理中文这样的多字节编码。
+		\item 经过一些包装和处理，\TeX~也可以处理中文，如~\alert{Con\TeX{}t}~可以处理中文。
+		\item 但这些都不及~\LaTeX~应用广泛。
+		\item 早期将~\LaTeX~引入中国的\alert{张林波}老师开发了~\alert{CCT}~用以支持中文。
+		\item 但当时的~CCT~对~\LaTeX~处理方法进行了改动，和大量的~\LaTeX~宏包并\alert{不兼容}。
+		\item 还好德国人~\alert{\href{mailto:wl@gnu.org}{Werner Lemberg}}~开发了~\alert{CJK}~宏包，支持在~\LaTeX~中使用中文。
+		\item 还有~\alert{\href{http://www.ctex.org}{CTeX}}~为~\LaTeX~的中文支持作出了巨大贡献。
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{CJK~宏包}
+	\begin{itemize}
+		\item<2-> CJK---\alert{C}hinese, \alert{J}apanese, \alert{K}orean 
+		\item<3-> CJK~宏包是德国人~Werner Lemberg~的杰出贡献。
+		\item<4-> CJK~的基本处理方法
+			\begin{enumerate}
+				\item<5-> 处理\alert{输入}源文件，一个一个读入亚洲字符集输入字符；
+				\item<6-> 将中日韩大字符集的\alert{逻辑字体拆分成多个字体}，建立逻辑字体到多个具体字体的映射；
+				\item<7-> 在输出文件中插入对应的字体。
+			\end{enumerate}
+		\item<8-> 大部分~\LaTeX~宏包\alert{不加修改或稍加修改}就可以和~CJK~和平共处。
+		\item<9-> 配合~CTeX~修改后的~\alert{GB.cpx}，标准的~article~和~book~文档类都可以支持中文。
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{书写中文}
+	\begin{enumerate}
+		\item<2-> 包含~CJK~宏包，以及辅助的~CJKnumb~包。
+		\item<3-> 使用~CJK 环境
+			\lstinputlisting[firstline=145,lastline=145]{examples/article.tex}
+			在其中就可以输入中文了。环境的参数:
+			\begin{description}
+				\item[GB]<4-> 字符编码，对于中文，还可能是~GBK, UTF8。
+				\item[song]<5-> 字体族，有很多种字体可选
+			\end{description}
+		\item<6-> 使用的字体还是可以改变的
+			\lstinputlisting[firstline=149,lastline=149]{examples/article.tex}
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{细节调整}
+	\begin{itemize}
+		\item<2-> 章节标题中的汉字
+			\lstinputlisting[firstline=146,lastline=146]{examples/article.tex}
+			这会载入~GB.cpx~文件，它原本是为一组叫~Komascript~的文档类设计的，CTeX~的~\alert{aloft}~修改了它，于是，标准的~article, book~都可以使用它了，标题会使用``第一章''这样的字样，以及``参考文献''，``目录''\ldots
+		\item<3-> CJKtilde。
+			
+			CJK~的设计并不能很好地处理中英文之间的衔接，源文件中，中文和英文之间如果空一格会导致中文中的英文单词的前面紧贴着中文，后面空一格，这样并不美观，我们使用~CJKtilde~命令后，`\~{}'~的行为被改变，成为一个很小的空间，在中英文之间放上它，可以让中英文混合的文章更漂亮。
+
+		\item<4-> CJKindent。标准的英文文章第一段的段首不缩进，使用这条命令后，会让第一段的段首有空格，而且将所有缩进都设置成中文习惯的缩进长度。
+	\end{itemize}
+\end{frame}
+
+\section{插入公式、图形、表格以及程序代码}
+
+\subsection{插入公式}
+\begin{frame}
+	\frametitle{\TeX~的数学模式}
+	\begin{block}{数学模式}
+	\begin{itemize}[<+->]
+		\item 数学模式几乎是~\TeX~诞生的原因，而很多人使用~\LaTeX~也是因为漂亮的数学排版。
+		\item 数学模式是~\TeX~的内建支持，包含了各种数学用的符号和排版的规则，所有你看到的数学书中的数学公式排版，都可以由~\TeX~实现。
+		\item 数学模式中的所有的公式都可以用纯文本录入，这意味着你在输入公式的时候无须将手移开键盘。
+	\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{公式环境}
+	\begin{itemize}[<+->]
+		\item 我们可以在文章的字里行间插入公式，如
+			\lstinputlisting[firstline=157,lastline=158]{examples/article.tex}
+		\item 结果就像~$\min_R D_{rec}(R)+\lambda\sum_{m=1}^{M}\sum_{l=1}^{L}R_{ml}$
+		\item 也可以断开行，突出显示
+			\lstinputlisting[firstline=161,lastline=164]{examples/article.tex}
+		\item 显示结果如
+			\begin{equation}
+			\min_R D_{rec}(R)+\lambda\sum_{m=1}^{M}\sum_{l=1}^{L}R_{ml},
+			\end{equation}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{多行公式}
+	\begin{block}{使用~\alert{eqnarry}~支持多行公式}<2->
+		\lstinputlisting[firstline=167,lastline=171]{examples/article.tex}
+	\end{block}
+	\begin{block}{显示效果如}<3->
+			\begin{eqnarray}
+				D_{dec} & = & D_0+ \theta/(R-R_0)+ \nonumber \\
+				&	& \kappa(P_r+(1-P_r)e^{-(C-R)T/L)}.
+				\label{equ:distort}
+			\end{eqnarray}
+	\end{block}
+\end{frame}
+
+\subsection{插入表格}
+
+\begin{frame}
+	\frametitle{绘制表格}
+	\begin{overprint}
+		\onslide<1|handout:1>
+		\begin{block}{使用~tabular~环境绘制表格}
+				\lstinputlisting[firstline=179,lastline=188]{examples/article.tex}
+		\end{block}
+		\onslide<2|handout:2>
+		\begin{block}{显示效果如}
+			\begin{tabular}{|l|lc|p{5em}|}
+			\hline
+			number & type & example & comments \\
+			\hline
+			\hline
+			1	& bf	&\textbf{bf}	& for the
+		    defination etc.\\
+			2	& italic&\textit{italic}& emph.\\
+			\hline
+			\end{tabular}
+
+			每一列的对齐方式对应环境的声明
+				\lstinputlisting[firstline=179,lastline=179]{examples/article.tex}
+			
+		\end{block}
+	\end{overprint}
+\end{frame}
+
+\begin{frame}
+	\frametitle{浮动表格环境}
+	\begin{itemize}
+		\item<1-> 我们常常希望表格的位置不是固定的，而是在页面的某些位置浮动，于是，使用~\alert{table}~环境构成浮动图形。
+		\item<2-> 同时，我们还用``\alert{caption}''为表格加标题，用``\alert{label}''来打标记。
+		\item<3-> 如示例
+				\lstinputlisting[firstline=175,lastline=179,frame=trl]{examples/article.tex}
+	\end{itemize}
+\end{frame}
+
+%\begin{frame}
+%	\frametitle{高级表格技巧}
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{超长表格支持}
+%\end{frame}
+
+\subsection{插入图形}
+
+\begin{frame}
+	\frametitle{支持的图片格式}
+	\begin{itemize}
+		\item 我们在~\LaTeX~文档中，通常使用~\alert{graphicx}~宏包来插入图形。
+		\item 以下格式的图片是被支持的:
+			\begin{tabular}[t]{lll}
+				\hline
+				\mbox{~}	& 图形格式 & 说明\\
+				\hline
+				\LaTeX		& eps	& 嵌入式~PS~文件 \\
+				pdf\LaTeX	& pdf	& 对就是那个 \\
+				\mbox{~}	& png	& 一种位图 \\
+				\mbox{~}	& jpg	& 另一种位图 \\
+				\hline
+			\end{tabular}
+		\item<2-> eps~图形格式
+			\begin{itemize}
+				\item 是一种矢量图
+				\item 可以直接绘制
+				\item 可以从~PS~文件中剪裁或通过~PS~虚拟打印机得到
+				\item 可以通过其他工具，如~(Imagimagick)~转换格式得到。
+			\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\defverb\vbgraph|\includegraphics[height=2cm]{figures/wti-logo}|
+\begin{frame}
+	\frametitle{插入图片}
+	\begin{center}
+		\includegraphics[height=2cm]{figures/wti-logo}
+	\end{center}
+	\begin{overprint}
+		\onslide<1|handout:1>
+		\begin{block}{插入图片的命令行}
+			以上图片使用如下命令行插入:
+			
+			\fbox{\vbgraph}	
+		\end{block}
+		\onslide<2|handout:2>
+		\begin{block}{常用命令行参数}
+			\begin{tabular}[t]{lp{8cm}}
+				\hline
+				\hline
+				参数	& 用途 \\
+				\hline
+				width/height	& 图片宽度或高度，如本例\\
+				scale	& 图片缩放的系数，如~scale=0.5\\
+				angle	& 图片旋转的角度，如~angle=90\\
+				clip	& eps~图片切边\\
+				\hline
+				\hline
+			\end{tabular}
+		\end{block}
+	\end{overprint}
+\end{frame}
+
+\begin{frame}
+	\frametitle{浮动图形}
+	\begin{itemize}
+		\item 与表格类似，图片也可以以浮动图形的方式出现在文档之中。
+		\item 格式如下
+			\lstinputlisting[firstline=193,lastline=199]{examples/article.tex}
+	\end{itemize}
+\end{frame}
+
+\subsection{插入程序代码}
+
+\begin{frame}
+	\frametitle{listings~宏包}
+	\begin{itemize}
+		\item<+-> \alert{verb}~命令和~\alert{verbatim}~环境可以用来原封不动的保持输入的内容，理论上讲，我们可以使用它们来展示程序代码。
+		\item<+-> listings~宏包的特色
+			\begin{itemize}
+				\item<+-> 两个命令~(lst\alert{inline}listing~和~lst\alert{input}listing)~与一个环境~(\alert{lstlisting})，其中~lstinputlisting~这个命令最为贴心，可以读入其它文件。
+				\item<+-> 支持多种程序语言的语法，对关键字、注释等进行语法加亮
+				\item<+-> 支持边框、背景色、字体风格、行号等特征
+			\end{itemize}
+		\item<+-> 本幻灯片中大部分代码是通过~listings~宏包加入的。
+	\end{itemize}
+\end{frame}
+
+\defverb\vblst|\lstinputlisting[firstline=295,lastline=295]{tex.tex}|
+\begin{frame}
+	\frametitle{设置与调用~listings~宏包}
+	\begin{overprint}
+		\onslide<1|handout:1>
+		\begin{block}{本幻灯片中的~listings~设置}
+			\lstinputlisting[firstline=50,lastline=57]{tex.preamble.tex}
+		\end{block}
+		\begin{block}{本文中使用~listings}
+			\vblst
+		\end{block}
+		\onslide<2|handout:2>
+		\begin{block}{常用参数}
+			\begin{tabular}[t]{lp{8cm}}
+				\hline
+				\hline
+				参数名称	& 说明\\
+				\hline
+				caption		& 一般的~caption~的内容，文章的题目\\
+				label		& 一般的~label~的含义，引用此列表的标记 \\
+				frame		& 边框设置\\
+				language	& 设置的语言\\
+				firstline	& 引用文件的起始行号\\
+				lastline	& 引用文件的终止行号\\
+				\hline
+				\hline
+			\end{tabular}
+		\end{block}
+	\end{overprint}
+	
+\end{frame}
+
+\section{参考文献}
+
+%\subsection{一般的参考文献列表}
+
+\begin{frame}
+	\frametitle{参考文献列表}
+	\begin{block}{参考文献列表很象~itemize~环境}
+		\lstinputlisting[firstline=207,lastline=216]{examples/article.tex}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{参考文献的引用}
+	\begin{block}{使用~\alert{cite}~命令引用参考文献}
+		\begin{itemize}
+			\item 可以使用最简单的引用方式
+				\lstinputlisting[firstline=201,lastline=201]{examples/article.tex}
+			\item 也可以一次引用多个参考文献
+				\lstinputlisting[firstline=203,lastline=203]{examples/article.tex}
+			\item 还可以加上更多的说明
+				\lstinputlisting[firstline=205,lastline=205]{examples/article.tex}
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+%\subsection{使用~BibTeX}
+%
+%\begin{frame}
+%	\frametitle{bibTeX~描述}
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{在~\LaTeX~源文件里引用~bibTeX}
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{如何编译~bibTeX~文件}
+%\end{frame}
+
+\section{更多技巧与常用宏包}
+
+\subsection{页面维度设置}
+\begin{frame}
+	\frametitle{页面维度参数}
+	\begin{block}{\LaTeX~把页面用以下几个长度描述}
+	    \pgfimage[width=10cm]{figures/geometry}
+	\end{block}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{geometry~宏包}
+	\begin{block}{geometry~的典型使用}
+		\lstinputlisting[firstline=4,lastline=13]{examples/article.tex}
+	\end{block}
+\end{frame}
+
+\subsection{页脚页眉设置}
+
+\begin{frame}
+	\frametitle{页面风格}
+	\begin{block}{\LaTeX~的内建风格}<1->
+		\begin{itemize}
+			\item<alert@2> \alert{empty}~是最简单的，也就是什么都没有。
+			\item<alert@3> \alert{plain}~是很简单的，缺省的风格，article~的首页和~book~的每章开始的地方通常也会是这个风格，只有下面有页码。
+			\item<alert@4> \alert{heading}~页眉放置章节的标题。
+		\end{itemize}
+	\end{block}
+	\begin{block}{\alert{fancyhdr}~宏包}<5->
+		\begin{itemize}
+			\item 页脚上方和页眉下方划线
+			\item 左中右三段式的页脚和页眉的设置
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{fancyhdr~宏包}
+	\begin{block}{\alert{article}~中常用的~fancyhdr~用法}
+		\lstinputlisting[firstline=26,lastline=40,frame=L]{examples/article.tex}
+	\end{block}
+\end{frame}
+
+\subsection{自定义命令与环境}
+\begin{frame}
+	\frametitle{自定义命令与环境}
+	\begin{block}{我们还可以修改一些命令或环境的行为}
+		\begin{itemize}
+			\item newcommand~和~newenvironment~命令可以定义新命令和环境
+			\item renewcommand~和~renewenvironment~命令可以修改已有的命令和环境
+			\item<2-> 这里也有一个例子
+				\lstinputlisting[firstline=24,lastline=25]{examples/article.tex}
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\section{参考文献与网上资料}
+\begin{frame}
+    \frametitle{文章推荐}
+    \begin{block}{入门必读}<2->
+	\begin{enumerate}
+	    \item<2-|alert@3> \href{ftp://ftp.ctex.org/pub/tex/CTDP/lshort-cn/}{lshort-cn}
+	    \item<2-|alert@4> \href{ftp://ftp.ctex.org/pub/tex/documents/bible/latex_manual.zip}{Latex2e使用手册（Latex Manual，latex科技文献排版指南电子版）}
+	    \item<2-|alert@5> \href{ftp://ftp.ctex.org/pub/tex/documents/bible/latex_graphics.zip}{latex插图指南（epslatex）中文版} 
+	\end{enumerate}
+    \end{block}
+	\begin{block}{常用快速参考手册}<6->
+		\begin{itemize}
+			\item \LaTeX Command.
+			\item \LaTeX Cookbook.
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+    其它推荐文章: 
+    \begin{itemize}
+	\item \href{ftp://ftp.ctex.org/pub/tex/CTDP/ctex-faq/}{CteX-FAQ}  
+	\item \href{ftp://ftp.ctex.org/mirrors/CTAN/info/lshort/english/}{lshort-en} 
+	\item \href{ftp://ftp.ctex.org/mirrors/CTAN/info/epslatex.pdf}{latex插图指南（using imported graphics in latex2e） 英文版} 
+	\item \href{ftp://ftp.ctex.org/pub/tex/documents/bible/texbook/}{texbook} 
+	\item \href{ftp://ftp.ctex.org/pub/tex/documents/bible/LaTeX_Companion_ch8.zip}{latex companion ch8（经典书籍latex companion的第八章，详细讲解数学输入）}
+	\item \href{ftp://ftp.ctex.org/mirrors/CTAN/info/latexhelpbook/}{latex-help-book} 
+	\item \href{ftp://ftp.ams.org/pub/tex/doc/amsmath/short-math-guide.pdf}{short math guide} 
+	\item \href{www.tug.org/tex-archive/info/math/voss/Voss-Mathmode.pdf}{math mode} 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{网站推荐}
+    \begin{itemize}
+	\item \href{http://www.ctex.org}{C\TeX: 中文~\TeX~中坚站，文档、下载、论坛}
+	\item \href{http://www.newsmth.net}{新水木}~\TeX~版
+	\item \href{http://www.ctan.org}{CTAN: Comprehensive \TeX Archive Network, \TeX~大全}
+    \end{itemize}
+\end{frame}
+\part{致谢}
+\section*{致谢}
+
+\begin{frame}%[plain]
+    \vfill
+    
+    \begin{center}
+	\Huge\noindent 谢~谢~!\\
+	\vfill
+	\large 2006年2月
+    \end{center}
+
+    \vfill
+\end{frame}
+
+%\end{CJK*}
+\end{document}

@@ -1,0 +1,160 @@
+\documentclass{IEEEtran}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{subfigure}
+
+\graphicspath{{images/}}
+
+\newtheorem{theorem}{Theorem}
+
+\title{Survey on Media Delivery in Personal Environment}
+\author{%
+	WANG~Xu and YIN Yaoyao%
+	\thanks{Wang Xu and Yin Yaoyao are with the Wireless 
+	Technology Innovation (WTI) Institute, Beijing University 
+	of Posts and Telecommunications (BUPT).}}
+
+\markboth{Wang Xu's Weekly,~Vol.~1, No.~1,~November~2005}{Survey on Media Delivery in Personal Environment}
+\pubid{\copyright~Wang Xu 2005}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	Although we focused on the construction mechanisms of the distributed terminal in the Universal Service Terminal (UST) project before, it is obvious that an efficient media delivery mechanism is required. We surveyed the current research on media delivery in mobile ad hoc network (MANET), found their methodologies and pointed out the issues for further research.
+\end{abstract}
+
+\begin{keywords}
+	Multi-Path, Media streaming, Mobile Ad hoc Network (MANET), Routing
+\end{keywords}
+
+\section{Introduction}
+
+\PARstart{D}{ays} ago, Ms. Feng pointed out that we should not ignore the media delivery issue in the UST project. And with the help of Mr. Shi Juwei, I found we could learn much from the research works of Prof. Girod's group\cite{bib:crosslayer} in stanford.
+
+In \cite{bib:setton_icme2004}, the authors analyze the optimal multipath routing on video streaming in a bandwidth limited ad hoc network.
+
+The rest of the article was organized as follows. We present the contribution from previous works in Section \ref{sec:contrib} firstly; A few issues may need further research are described in Section \ref{sec:issue}; At last, a short conclusion was drawn and the plan of further research was proposed.
+
+\section{Contribution of Others}\label{sec:contrib}
+
+For media delivery in MANET, several issues was addressed in publications of others for the traffic characteristic of media stream and the self-orgainzed nature of MANET.
+
+\subsection{Optimization Objectives of Routing Algorithms}
+
+Most of the routing problems can be conclude to \emph{Minimum Cost Flow Problem}~\cite{bib:flow}, i.e. to find the path with minimum delay, energy consumption, etc. In most of the traditional ad hoc routing algorithms, the optimization objective is finding \emph{a path} with minimized number of \emph{hops}. However, we have many restrictions in the scenario of media streaming transmition over ad hoc networks, e.g.
+\begin{itemize}
+	\item The packages must arrive the destination in a critical time delay;
+	\item A MANET has a dynamic topology;
+	\item The radio links in MANET have only limited capacity.
+\end{itemize}
+
+Hence, the authors of \cite{bib:setton_icme2004} proposed that multipath could be exploited simultaneously and minimizing congestion could be the goal of the routing algorithm. The proposed algorithm aims to find a package allocation scheme among several $M/M/1$ queues with a minimized global average delay
+\begin{equation}
+    \sum_{(i,j)}\frac{f_{ij}+F_{ij}}{C_{ij}-F_{ij}-f_{ij} }
+    \label{equ:delay}
+\end{equation}
+in which the $f$ is the matrix of new traffic, while Matrix $F$ and $C$ denote the prior traffic and link capacity respectively. As the end-to-end delay, which stands for congestion, is a \emph{convex} function, the optimization issue could be solved with programming method. The authors of \cite{bib:setton_icme2004} indicated two issues in it:
+\begin{enumerate}
+	\item The complexity of the optimization might be impractical;
+	\item It is unrealistic for each node to know the capacity map of the network and the prior traffic on each link.
+\end{enumerate}
+And they solved them by limiting the traffic to a set of predetermined paths. However, the question of the authors of this reports is 
+\begin{quote}
+	\emph{How to predetermine the path and is it only avoid the complexity issue?}
+\end{quote}
+
+The author of \cite{bib:setton_icme2004} also addressed a \emph{heuristic} scheme for comparision. And they showed that the proposed optimal algorithm reduced the congestion observably in the condition of 6 paths.
+
+\subsection{Video Distortion Model}
+\pubidadjcol
+Media stream typically has a relationship between the code rate and video quality, i.e. the higher the code rate the better video quality. However, higher code rete of video encoding may lead to massiver traffic flow, i.e. which may increasing the probability of congestion.
+
+In \cite{bib:setton_mmsp2004}, E. Setton \textit{et al.} mentioned that rate-distortion optimized scheduling was receiving increasing attention in the video streaming. As the group \cite{bib:crosslayer} in stanford is focusing on end-to-end delay or congestion, they indicated the relationship among video distortion, delay and code rate in \cite{bib:setton_icme2004} and \cite{bib:setton_mmsp2004}. They proposed a congestion-distortion optimized scheduling method in \cite{bib:setton_mmsp2004}.
+
+In \cite{bib:setton_icme2004}, the received video distortion was expressed as:
+\begin{eqnarray}
+	D_{dec} & = & D_0+ \theta/(R-R_0)+ \nonumber \\
+	&	& \kappa(P_r+(1-P_r)e^{-(C-R)T/L)}.
+	\label{equ:distort}
+\end{eqnarray}
+where $R$ is the rate of video stream, $P_r$ reprensents the package loss rate, $C$ and $L$ stand for link capacity and package length respectively, $T$ denotes the maximum delay allowed, and the $D_0$, $\theta$ and $R_0$ are estimated from empirical rate-distortion curves via regression techniques.
+
+Moreover, in \cite{bib:setton_mmsp2004}, E. Setton \textsl{et al.} proposed to optimize the scheduling algorithm by minizing the Lagrangian cost
+\begin{equation}
+	D + \lambda\Delta
+	\label{equ:codio}
+\end{equation}
+where $D$ and $\Delta$ represent the expected values of distortion and end-to-end delay, and find the solution iteratively for each packet to optimize the distortion/congestion.
+
+\subsection{Traffic Allocation}
+For a set of given paths in ad hoc wireless networks, the rate allocation was considered in \cite{bib:zhu_icip2004}. In \cite{bib:zhu_icip2004}, X. Zhu \textit{et al.} proposed a gradient descent method to optimize the rate-distortion performance and rate-congestion tradeoffs. Moreover, two allocation strategies, \emph{layered representation} and \emph{partial repetition} are insvestigated respectively.
+
+X. Zhu \textit{et al.} considered a subband decomposition method and SPIHT (Set Partitioning in Hierarchical Trees) compression based image encoding, which specified the rate-distortion function $d^{(l)}(r)$, where the $l$ denotes the $l$th package. Then the encoding distortion, $D^{(l)}_{enc}(R)$ for each considered allocation stratigies can be found. 
+
+The received distortion, $D_{rec}(R)$, is a funuction of $D^{(l)}_{enc}(R)$ and $P_m(R)$, the package drop rate, and then the target of optimization becomes
+\begin{eqnarray}
+	\min_R D_{rec}(R)+\lambda\sum_{m=1}^{M}\sum_{l=1}^{L}R_{ml},
+	\label{equ:distort_rate}
+\end{eqnarray}
+with some constraints in \cite{bib:zhu_icip2004}. And the optimization is solved with gradient descent method.
+
+\subsection{Cross-Layer Design}
+In \cite{bib:yoo_mmsp2004}, T. Yoo \textit{et al.} proposed a cross-layer design for streaming over wireless ad hoc networks. In the cross-layer design, the concept of \emph{capacity region} is introduced for the transmission scheme:
+\begin{equation}
+	\mathcal{C}=\Biggl\{\sum_{k=1}^{L}\lambda_kR_k : \lambda_k\ge0, \sum_{i=1}^L\lambda_i<1 \Biggr\}.
+	\label{eqn:cr}
+\end{equation}
+
+In (\ref{eqn:cr}), the transmission scheme and the capacity of networks are considered jointly, and congestion minimized capacity and flow allocation was proposed by T. Yoo \textit{et al.} based on the capacity region concept then. As shown in \cite{bib:yoo_mmsp2004}, the cross-layer design can bring an 8.5 dB gain in PSNR, however, the mobility influences it significantly because the flow allocation in cross-layer design fits the link states too well.
+
+It is indicated that even only have one path, the cross-layer design has better performance than the 3-paht oblivious layer design.
+
+\section{Found Issues}\label{sec:issue}
+
+\subsection{Capacity Model in Heterogeneous Networks}
+
+In \cite{bib:yoo_mmsp2004}, the capacity region concept was introduced based on the assumption:
+\begin{quote}
+	The nodes are identical, and a node can act as a transmitter or a receiver at each time instance, but cannot do both simultaneously.
+\end{quote}
+However, in the future personal or residential environment considered by UST or similar project, the networks are heterogeneous definitely. And if we change the assumption, the expression of capacity region should be changed significantly. 
+
+Several challanges should be considered in the heterogeneous, e.g. even in the homogeneous scenario, the complexity of capacity region is too complicated, thus the computing complexity in heterogeneous networks should be considered properly; Moreover, the interference between different transmission technologies may influence the capacity of network much. Firstly, we assume only IEEE 802.11 and Bluetooth are adoped as the coexistance of them was surveyed by many references and convenient to simulation.
+
+\subsection{Propagation Model and Mobility Model}
+
+For personal or residential environment, the free space or two-ray model are not suitable and more sophisticated propagation model is required; on the other hand, the scenario may not need a 100x100m squire scope.
+
+Moreover, the mobility behavior of nodes in personal or residential environment is much different from those considered in \cite{bib:yoo_mmsp2004}, e.g. some nodes may move together while others may not move at all.
+
+However, we think we should focus on the most significant problem, thus the mobility model will not be considered in current research.
+
+\section{Reading More}\label{sec:reading}
+
+More publication from \cite{bib:crosslayer} should be read to catch the working progress of them. And more references should be read:
+\begin{itemize}
+	\item For the multipath video transmission over ad hoc network \cite{bib:mao_jsac2003,bib:royer_pcomm99} should be read;
+	\item For the capacity calculation \cite{bib:toumpis_wiley2003} should be read;
+	\item For the coexistance of Bluetooth and IEEE 802.11, \cite{bib:chias_infocomm2002} should be read.
+\end{itemize}
+
+\section{Conclusion}
+
+In this report, we surveyed the research of the group in stanford and pointed out some issues for our further working. We will read the references listed in Section \ref{sec:reading} and find a more concrete working procedure next week.
+
+\section*{Acknowledgement}
+
+Thanks for the world and the life.
+
+%\newpage%\noindent
+%\IEEEtriggeratref{2}
+
+%{{{ References
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv,weekly}
+%}}}
+
+\end{document}
+% \newpage or \IEEEtriggeratref{<+bib number+>} may need to be inserted to equalized the two columns of the final page. if in one paragraph, \noindent might help.

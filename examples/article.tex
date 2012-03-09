@@ -1,0 +1,219 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{fancyhdr,listings,graphicx}
+\usepackage{CJK,CJKnumb}
+\usepackage[a4paper,%
+	includehead,%
+	includefoot,%
+	top=2cm,%
+	bottom=2cm,%
+	left=2cm,%
+	right=2cm,%
+	head=15pt,%
+	foot=15pt%
+	]{geometry}
+\usepackage[dvipdfm,%
+	CJKbookmarks,%
+	colorlinks,%
+	linkcolor=blue,%
+	hyperindex,%
+	plainpages=false,%
+	pdfstartview=FitH%
+	]{hyperref}
+
+\renewcommand{\sectionmark}[1]
+{\markright{\thesection\ #1}}
+
+\fancyhf{}
+\pagestyle{fancy}
+\lhead{\rightmark}
+\chead{{\color{blue} $\spadesuit$ gnawux $\spadesuit$}}
+\rhead{\bfseries\thepage}
+\lfoot{Manipulated by \LaTeXe.}
+\rfoot{K.I.S.S.---Keep It Simple Stupid}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+\fancypagestyle{plain}{%
+	\fancyhf{} % get rid of headers on plain pages
+	\cfoot{\bfseries\thepage}
+	\renewcommand{\headrulewidth}{0pt} % and the line
+	\renewcommand{\footrulewidth}{0.5pt}
+}
+
+
+\begin{document}
+
+\title{Hello, \LaTeX!\\
+My First \LaTeX Work}
+\author{Wang Xu\\
+Beijing Univ. of Posts and Telecomm.\\
+gnawux@gmail.com
+\and 
+Mr. Sleepy\\
+Who knows where he come from\\
+nobody@anywhere.net%
+}
+\maketitle
+
+\begin{abstract}
+This is an          example for illustrate the organ%
+ization of 
+a \LaTeXe file. 
+
+You can learn many commands and environments of it in 
+this example.
+\end{abstract}
+
+\section{Introduction}\label{sec:intro}
+
+	Welcome to \LaTeXe.
+	
+\begin{quote}
+We use ``quote'' environment for words from others.
+\end{quote}
+	
+	\newpage
+	\verb|\newpage|~command can break current page.
+
+\section[short name]%
+{section has a long name}
+
+	\clearpage
+	\verb|\clearpage|~command can break current page too.
+
+\section*{asterisk means\ldots}
+
+\section{special elements}
+
+This sentence have 
+footnote\footnote{blah blah\ldots}.
+
+We have mentioned in \S~\ref{sec:intro} on 
+pp.~\pageref{sec:intro}\ldots
+
+\section{special character}
+
+we use ``quote sign'' like this. So pretty.
+
+Tilde(\~{}) can generate~nbsp
+
+one means hyphe-nation\\
+two is a -- short bar\\
+three --- oh yeah\\
+
+\subsection{verbatim}
+
+\verb|%$#@~\  oh yeah| --- all are verb
+
+\begin{verbatim}
+here,
+#@%$
+verbatims\ldots
+\end{verbatim}
+
+\subsection{font family}
+
+\emph{emphasis} and \underline{underline}
+
+\textbf{bold face}
+
+\textit{italic}
+
+\texttt{typewriter}
+
+\subsection{itemize and enumerate}
+
+\begin{itemize}
+	\item ooolllwww
+	\item tttiiirrr
+	\item nnnmmmeee
+\end{itemize}
+
+\begin{enumerate}
+	\item first one
+	\item another one
+	\item yet another
+\end{enumerate}
+
+\begin{description}
+	\item[itemize] bullet
+	\item[enumerate] number
+	\item[description] the term
+\end{description}
+
+\section{CJK}
+
+\begin{CJK*}{GB}{song}
+	\CJKcaption{GB}
+
+
+	{\CJKfamily{kai}
+
+	}
+\end{CJK*}
+\section{Equation and floating obj}
+\subsection{Equation}
+
+in line equation like
+$\min_R D_{rec}(R)+\lambda\sum_{m=1}^{M}%
+\sum_{l=1}^{L}R_{ml}$
+
+and equation environment
+\begin{equation}
+\min_R D_{rec}(R)+\lambda\sum_{m=1}^{M}%
+\sum_{l=1}^{L}R_{ml},
+\end{equation}
+
+for multiline
+\begin{eqnarray}
+D_{dec}&=&D_0+\theta/(R-R_0)+ \nonumber\\
+       & &\kappa(P_r+(1-P_r)e^{-(C-R)T/L)}.
+\label{equ:distort}
+\end{eqnarray}
+
+\subsection{Table}
+
+\begin{table}[htb]
+\centering
+\caption{Sample Table}
+\label{tab:sample}
+\begin{tabular}{|l|lc|p{5em}|}
+\hline
+number & type & example & comments \\
+\hline
+\hline
+\hline
+1	& bf	&\textbf{bf}	& for the
+defination etc.\\
+2	& italic&\textit{italic}& emph.\\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Figures}
+
+\begin{figure}[htb]
+	\begin{center}
+%		\includegraphics{}
+	\end{center}
+	\caption{Sample figure}
+	\label{fig:sample}
+\end{figure}
+
+in \cite{bib:ubi91weiser}, \ldots
+
+in \cite{bib:ubi91weiser,bib:wwrf}, \ldots
+
+in \cite[pp. 99-105]{bib:wwrf}, \ldots
+
+\begin{thebibliography}{10}
+\bibitem{bib:ubi91weiser} 
+  M. Weiser, 
+  The computers for the twenty-first century, 
+  Scentific American, 
+  vol. 265, pp. 94-100, Sept. 1991.
+\bibitem{bib:wwrf} 
+  The Wireless World Research Forum, 
+  http://www.wireless-world-research.org .
+\end{thebibliography}
+
+\end{document}
